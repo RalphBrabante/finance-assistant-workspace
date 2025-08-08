@@ -1,6 +1,8 @@
 [submodule "finance-assistant-api-service"]
 	path = finance-assistant-api-service
 	url = git@github.com:RalphBrabante/finance-assistant-api-service.git
+	branch = main
 [submodule "finance-assistant-db-service"]
 	path = finance-assistant-db-service
 	url = git@github.com:RalphBrabante/finance-assistant-db-service.git
+	branch = main
