@@ -2,7 +2,7 @@ volumes:
   mysql_data:
 
 services:
-  db-service:
+  finance-assistant-db-service:
     image: mysql
     build: ./db-service
     container_name: db-service
@@ -17,12 +17,12 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  api-service:
+  finance-assistant-api-service:
     image: node
-    build: ./api-service
-    container_name: api-service
+    build: ./finance-assistant-api-service
+    container_name: finance-assistant-api-service
     depends_on:
-      - db-service
+      - finance-assistant-db-service
 
     ports:
       - "3000:3000"
@@ -30,10 +30,10 @@ services:
     command: sh -c "npx sequelize-cli db:migrate && npm run dev"
 
     volumes:
-      - ./api-service/src:/api-service/src # Mount your code
-      - /api-service/node_modules # Prevent host from overwriting container node_modules
+      - ./finance-assistant-api-service/src:/finance-assistant-api-service/src # Mount your code
+      - /finance-assistant-api-service/node_modules # Prevent host from overwriting container node_modules
     environment:
-      DB_HOST: db-service
+      DB_HOST: finance-assistant-db-service
       DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD: rootpassword
