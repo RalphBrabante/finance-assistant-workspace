@@ -4,8 +4,8 @@ volumes:
 services:
   finance-assistant-db-service:
     image: mysql
-    build: ./db-service
-    container_name: db-service
+    build: ./finance-assistant-db-service
+    container_name: finance-assistant-db-service
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
@@ -27,7 +27,7 @@ services:
     ports:
       - "3000:3000"
 
-    command: sh -c "npx sequelize-cli db:migrate && npm run dev"
+    command: sh -c "npx sequelize-cli db:migrate && chmod +x ./wait.sh && ./wait.sh finance-assistant-db-service:3306 && npm run dev"
 
     volumes:
       - ./finance-assistant-api-service/src:/finance-assistant-api-service/src # Mount your code
