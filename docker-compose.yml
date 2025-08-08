@@ -1,0 +1,40 @@
+volumes:
+  mysql_data:
+
+services:
+  db-service:
+    image: mysql
+    build: ./db-service
+    container_name: db-service
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: sampledb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  api-service:
+    image: node
+    build: ./api-service
+    container_name: api-service
+    depends_on:
+      - db-service
+
+    ports:
+      - "3000:3000"
+
+    command: sh -c "npx sequelize-cli db:migrate && npm run dev"
+
+    volumes:
+      - ./api-service/src:/api-service/src # Mount your code
+      - /api-service/node_modules # Prevent host from overwriting container node_modules
+    environment:
+      DB_HOST: db-service
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: sampledb
