@@ -26,6 +26,7 @@ services:
 
     ports:
       - "3000:3000"
+      - "9229:9229"
 
     command: sh -c "npx sequelize-cli db:migrate && chmod +x ./wait.sh && ./wait.sh finance-assistant-db-service:3306 && npm run dev"
 
