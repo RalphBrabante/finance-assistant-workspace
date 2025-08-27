@@ -6,3 +6,6 @@
 	path = finance-assistant-db-service
 	url = git@github.com:RalphBrabante/finance-assistant-db-service.git
 	branch = main
+[submodule "finance-assistant-client"]
+	path = finance-assistant-client
+	url = git@github.com:RalphBrabante/finance-assistant-client.git

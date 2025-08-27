@@ -55,3 +55,8 @@ services:
         "--requirepass",
         "yourStrongPassword",
       ]
+  finance-assistant-client:
+    build: ./finance-assistant-client
+    container_name: finance-assistant-client
+    ports:
+      - "8080:80"
