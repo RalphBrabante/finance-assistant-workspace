@@ -1,6 +1,6 @@
 volumes:
   mysql_data:
-
+  redis-data:
 services:
   finance-assistant-db-service:
     image: mysql
@@ -39,3 +39,19 @@ services:
       DB_USER: root
       DB_PASSWORD: rootpassword
       DB_NAME: sampledb
+
+  finance-assistant-redis-service:
+    image: redis:latest
+    container_name: finance-assistant-redis-service
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command:
+      [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--requirepass",
+        "yourStrongPassword",
+      ]
